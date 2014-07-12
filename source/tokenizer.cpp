@@ -1,8 +1,8 @@
 #include <iostream>
 #include <fstream>
-#include <unordered_map>
 #include <string>
 #include <locale>
+#include <map>
 #include "tokenizer.h"
 using namespace std;
 
@@ -11,6 +11,7 @@ locale loc;
 
 string handlePuncuationAndCasing(string currentBuffer) 
 {
+	// look at the beginning of the string
 	int beginningIter = 0;
 	int startNoPuncuation = 0;
 
@@ -24,6 +25,7 @@ string handlePuncuationAndCasing(string currentBuffer)
 		beginningIter++;
 	}
 
+	// look at the end of the string
 	int endIter = currentBuffer.length() - 1;
 	int endNoPuncuation = currentBuffer.length() - 1;
 
@@ -37,8 +39,11 @@ string handlePuncuationAndCasing(string currentBuffer)
 		endIter--;
 	}
 	
+	// we'll do a manual substring here, so we can tolower() at the same time
 	int numberOfPlacesToKeep = endIter - beginningIter + 1;
-	string newBuffer; // = currentBuffer.substr(beginningIter, numberOfPlacesToKeep);
+
+	// create a new buffer to return
+	string newBuffer; 
 
 	for (int i = beginningIter; i <= endIter; i++) 
 	{
@@ -48,49 +53,81 @@ string handlePuncuationAndCasing(string currentBuffer)
 	return newBuffer;
 }
 
-bool processInputFileLine(char* fileName) 
+// passing the references in...
+void addedOrUpdatedDictionary(
+	map <string, int> &wordCount, 
+	string &currentBuffer) 
 {
-	unordered_map <string, int> wordCount;
+	if (currentBuffer.length() > 0) 
+	{
+		string cleansedInput = handlePuncuationAndCasing(currentBuffer);
+		// does our hash have our key?
+		map<string, int>::iterator foundKvp = wordCount.find(cleansedInput);
 
+		if (foundKvp == wordCount.end()) 
+		{
+			wordCount[cleansedInput] = 1;
+		}
+		else 
+		{
+			wordCount[cleansedInput] = wordCount[cleansedInput] + 1;
+		}
+
+		currentBuffer = "";
+	}
+}
+
+void processInputFileLine(
+	string fileName, 
+	map <string, int> &wordCount) 
+{
 	ifstream file(fileName, ifstream::in);
 
 	char currentChar;
-	bool previousCharWasSpace = false;
 	string currentBuffer;
 	
-	cout << std::tolower(currentBuffer[0], loc) << endl;
-	while (file >> noskipws >> currentChar) {
-		if (currentChar == ' ' && currentBuffer.length() > 0) { 
-			handlePuncuationAndCasing(currentBuffer);
-			currentBuffer = "";
+	// process each character of the file
+	while (file >> noskipws >> currentChar) 
+	{
+		// did we find a new space and we aren't at the beginning?
+		if (currentChar == ' ' || currentChar == '\n') 
+		{ 
+			// update the dictionary, if applicable
+			addedOrUpdatedDictionary(wordCount, currentBuffer);
 		}
-		else if (currentChar != ' ') {
+		// add to buffer until we reach a space
+		else if (currentChar != ' ') 
+		{
 			currentBuffer += currentChar;
 		}
 	}
+	// handle remaining, if applicable
+	addedOrUpdatedDictionary(wordCount, currentBuffer);
 
 	// close file
 	file.close();
-	
-	return true;
 }
 
-bool processFileInList(char fileName[]) 
+void processFileInList(
+	string fileName,
+	map<string, int> &wordCount) 
 {
 	ifstream file;
 	file.open(fileName, ios::in);
 
-	char inputFileName[300];
-	file >> inputFileName;
-	processInputFileLine(inputFileName);
+	// if the file doesn't exist, leave
+	if (!file) {
+		return;
+	}
 
-	while (file) {
-		file >> inputFileName;
-		processInputFileLine(inputFileName);
+	// handle each line of the file
+	for (string line; getline(file, line);)
+	{
+		processInputFileLine(line, wordCount);
 	}
 
 	// close file
 	file.close();
 
-	return true;
+	return;
 }

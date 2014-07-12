@@ -1,4 +1,6 @@
 #include <iostream>
+#include <map>
+#include "transformMap.h"
 #include "tokenizer.h"
 using namespace std;
 
@@ -104,6 +106,75 @@ int charactersAreForcedIntoLower()
 	return 0;
 }
 
+int returnsFalseIfMainFileDoesNotExist()
+{
+	int expected = 0;
+	map <string, int> result;
+	processFileInList("erroneousFileName.txt", result);
+
+	if (result.size() == expected) {
+		return 1;
+	}
+
+	cout << "failed returnsFalseIfMainFileDoesNotExist" << endl;
+	
+	return 0;
+}
+
+int returnsMasterListWhenInputFileEntered()
+{
+	int expected = 13;
+	map <string, int> result; 
+	processFileInList("docs/testInput.txt", result);
+
+	if (result.size() == expected) {
+		return 1;
+	}
+
+	cout << "failed returnsMasterListWhenInputFileEntered " << result.size() << endl;
+
+	for (map<string, int>::iterator it=result.begin(); it!=result.end(); ++it)
+	{
+    	cout << it->first << " => " << it->second << '\n';
+    }
+	
+	return 0;
+}
+
+int returnsCorrectDictionaryFromSimpleTestDocument()
+{
+	int expected = 8;
+	map <string, int> result;
+	processInputFileLine("docs/simpleTest.txt", result);
+
+	if (result.size() == expected) {
+		return 1;
+	}
+
+	for (map<string, int>::iterator it=result.begin(); it!=result.end(); ++it)
+	{
+    	cout << it->first << " => " << it->second << '\n';
+    }
+
+	cout << "failed returnsCorrectDictionaryFromSimpleTestDocument: " << result.size() << endl;
+	
+	return 0;
+}
+
+int transformsDictionaryCorrectly()
+{
+	int expected = 8;
+	map <string, int> result;
+	processInputFileLine("docs/simpleTest.txt", result);
+	transformMapToFile(result, "testFile.txt");
+
+	if (result.size() == expected) {
+		return 1;
+	}
+	
+	return 0;
+}
+
 int main()
 {
 	int passedTests;
@@ -114,7 +185,10 @@ int main()
 	passedTests += puncuationKeptInMiddle();
 	passedTests += puncuationRemovedFromSidesButKeptInMiddle();
 	passedTests += charactersAreForcedIntoLower();
+	passedTests += returnsFalseIfMainFileDoesNotExist();
+	passedTests += returnsCorrectDictionaryFromSimpleTestDocument();
+	passedTests += returnsMasterListWhenInputFileEntered();
+	passedTests += transformsDictionaryCorrectly();
 
 	cout << "passed " << passedTests << " tests" << endl;
 }
-

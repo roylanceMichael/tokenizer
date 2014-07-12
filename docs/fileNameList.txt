@@ -1,2 +1,2 @@
-inputFile.txt
-inputFile.txt
+docs/inputFile.txt
+docs/inputFile.txt

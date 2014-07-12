@@ -1,9 +1,10 @@
 #include <iostream>
 #include <fstream>
-#include <unordered_map>
+#include <map>
 #include <string>
 #include <typeinfo>
 #include "tokenizer.h"
+#include "transformMap.h"
 using namespace std;
 
 int main(int argc, char* argv[])
@@ -15,7 +16,12 @@ int main(int argc, char* argv[])
 	}
 
 	cout << "processing input " << argv[1] << endl;
-	processFileInList(argv[1]);
+	string mainFileName(argv[1]);
+	string outputFile(argv[2]);
+	map <string, int> wordCount;
+
+	processFileInList(mainFileName, wordCount);
+	transformMapToFile(wordCount, outputFile);
 
 	return 0;
 }
