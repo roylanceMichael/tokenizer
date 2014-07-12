@@ -9,7 +9,7 @@ using namespace std;
 // static variables
 locale loc;
 
-string removePuncuation(string currentBuffer) 
+string handlePuncuationAndCasing(string currentBuffer) 
 {
 	int beginningIter = 0;
 	int startNoPuncuation = 0;
@@ -38,7 +38,13 @@ string removePuncuation(string currentBuffer)
 	}
 	
 	int numberOfPlacesToKeep = endIter - beginningIter + 1;
-	string newBuffer = currentBuffer.substr(beginningIter, numberOfPlacesToKeep);
+	string newBuffer; // = currentBuffer.substr(beginningIter, numberOfPlacesToKeep);
+
+	for (int i = beginningIter; i <= endIter; i++) 
+	{
+		newBuffer += tolower(currentBuffer[i]);
+	}
+
 	return newBuffer;
 }
 
@@ -55,7 +61,7 @@ bool processInputFileLine(char* fileName)
 	cout << std::tolower(currentBuffer[0], loc) << endl;
 	while (file >> noskipws >> currentChar) {
 		if (currentChar == ' ' && currentBuffer.length() > 0) { 
-			removePuncuation(currentBuffer);
+			handlePuncuationAndCasing(currentBuffer);
 			currentBuffer = "";
 		}
 		else if (currentChar != ' ') {

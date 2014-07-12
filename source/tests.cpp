@@ -4,11 +4,11 @@ using namespace std;
 
 int fullStringReturnedWhenFullStringGiven()
 {
-	string testStr = "helloWorld";
+	string testStr = "helloworld";
 
-	string expected = "helloWorld";
+	string expected = "helloworld";
 
-	string actual = removePuncuation(testStr);
+	string actual = handlePuncuationAndCasing(testStr);
 
 	if (actual == expected) {
 		return 1;
@@ -21,11 +21,11 @@ int fullStringReturnedWhenFullStringGiven()
 
 int puncuationRemovedFromBeginning()
 {
-	string testStr = ".helloWorld";
+	string testStr = ".helloworld";
 
-	string expected = "helloWorld";
+	string expected = "helloworld";
 
-	string actual = removePuncuation(testStr);
+	string actual = handlePuncuationAndCasing(testStr);
 
 	if (actual == expected) {
 		return 1;
@@ -40,9 +40,9 @@ int puncuationRemovedFromEnd()
 {
 	string testStr = "helloWorld.";
 
-	string expected = "helloWorld";
+	string expected = "helloworld";
 
-	string actual = removePuncuation(testStr);
+	string actual = handlePuncuationAndCasing(testStr);
 
 	if (actual == expected) {
 		return 1;
@@ -55,11 +55,11 @@ int puncuationRemovedFromEnd()
 
 int puncuationKeptInMiddle()
 {
-	string testStr = "hello.World";
+	string testStr = "hello.world";
 
-	string expected = "hello.World";
+	string expected = "hello.world";
 
-	string actual = removePuncuation(testStr);
+	string actual = handlePuncuationAndCasing(testStr);
 
 	if (actual == expected) {
 		return 1;
@@ -72,17 +72,34 @@ int puncuationKeptInMiddle()
 
 int puncuationRemovedFromSidesButKeptInMiddle()
 {
-	string testStr = "!hello.World@";
+	string testStr = "!hello.world@";
 
-	string expected = "hello.World";
+	string expected = "hello.world";
 
-	string actual = removePuncuation(testStr);
+	string actual = handlePuncuationAndCasing(testStr);
 
 	if (actual == expected) {
 		return 1;
 	}
 
 	cout << "failed puncuationRemovedFromSidesButKeptInMiddle expected, actual: " << actual << expected << endl;
+	
+	return 0;
+}
+
+int charactersAreForcedIntoLower()
+{
+	string testStr = "HELLOWORLD";
+
+	string expected = "helloworld";
+
+	string actual = handlePuncuationAndCasing(testStr);
+
+	if (actual == expected) {
+		return 1;
+	}
+
+	cout << "failed charactersAreForcedIntoLower expected, actual: " << actual << expected << endl;
 	
 	return 0;
 }
@@ -96,6 +113,7 @@ int main()
 	passedTests += puncuationRemovedFromEnd();
 	passedTests += puncuationKeptInMiddle();
 	passedTests += puncuationRemovedFromSidesButKeptInMiddle();
+	passedTests += charactersAreForcedIntoLower();
 
 	cout << "passed " << passedTests << " tests" << endl;
 }
