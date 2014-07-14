@@ -190,5 +190,5 @@ int main()
 	passedTests += returnsMasterListWhenInputFileEntered();
 	passedTests += transformsDictionaryCorrectly();
 
-	cout << "passed " << passedTests << " tests" << endl;
+	cout << "passed " << passedTests << " / 10 tests" << endl;
 }

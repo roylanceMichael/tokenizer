@@ -61,6 +61,13 @@ void addedOrUpdatedDictionary(
 	if (currentBuffer.length() > 0) 
 	{
 		string cleansedInput = handlePuncuationAndCasing(currentBuffer);
+		
+		// does the cleansing result in a 0 string?
+		if (cleansedInput.length() == 0) 
+		{
+			return;
+		}
+
 		// does our hash have our key?
 		map<string, int>::iterator foundKvp = wordCount.find(cleansedInput);
 
@@ -83,6 +90,10 @@ void processInputFileLine(
 {
 	ifstream file(fileName, ifstream::in);
 
+	if (!file) {
+		cout << fileName << " does not exist!" << endl;
+	}
+
 	char currentChar;
 	string currentBuffer;
 	
@@ -90,13 +101,13 @@ void processInputFileLine(
 	while (file >> noskipws >> currentChar) 
 	{
 		// did we find a new space and we aren't at the beginning?
-		if (currentChar == ' ' || currentChar == '\n') 
+		if (isspace(currentChar, loc)) 
 		{ 
 			// update the dictionary, if applicable
 			addedOrUpdatedDictionary(wordCount, currentBuffer);
 		}
 		// add to buffer until we reach a space
-		else if (currentChar != ' ') 
+		else
 		{
 			currentBuffer += currentChar;
 		}
@@ -108,16 +119,16 @@ void processInputFileLine(
 	file.close();
 }
 
-void processFileInList(
+bool processFileInList(
 	string fileName,
 	map<string, int> &wordCount) 
 {
-	ifstream file;
-	file.open(fileName, ios::in);
+	ifstream file(fileName, ios::in);
 
 	// if the file doesn't exist, leave
 	if (!file) {
-		return;
+		cout << fileName << " does not exist." << endl;
+		return false;
 	}
 
 	// handle each line of the file
@@ -129,5 +140,5 @@ void processFileInList(
 	// close file
 	file.close();
 
-	return;
+	return true;
 }

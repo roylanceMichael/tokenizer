@@ -20,9 +20,13 @@ int main(int argc, char* argv[])
 	string outputFile(argv[2]);
 	map <string, int> wordCount;
 
-	processFileInList(mainFileName, wordCount);
-	transformMapToFile(wordCount, outputFile);
+	bool processResult = processFileInList(mainFileName, wordCount);
 
-	return 0;
+	if (processResult) {
+		transformMapToFile(wordCount, outputFile);
+		return 0;
+	}
+
+	return 1;
 }
 

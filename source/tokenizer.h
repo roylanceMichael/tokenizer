@@ -6,4 +6,4 @@ std::string handlePuncuationAndCasing(std::string currentBuffer);
 void processInputFileLine(std::string fileName, std::map<std::string, int> &wordCount);
 
 // processes all the filenames in a file
-void processFileInList(std::string fileName, std::map<std::string, int> &wordCount);
+bool processFileInList(std::string fileName, std::map<std::string, int> &wordCount);
