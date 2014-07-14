@@ -88,7 +88,7 @@ void processInputFileLine(
 	string fileName, 
 	map <string, int> &wordCount) 
 {
-	ifstream file(fileName, ifstream::in);
+	ifstream file(fileName.c_str(), ifstream::in);
 
 	if (!file) {
 		cout << fileName << " does not exist!" << endl;
@@ -123,7 +123,7 @@ bool processFileInList(
 	string fileName,
 	map<string, int> &wordCount) 
 {
-	ifstream file(fileName, ios::in);
+	ifstream file(fileName.c_str(), ios::in);
 
 	// if the file doesn't exist, leave
 	if (!file) {

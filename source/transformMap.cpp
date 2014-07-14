@@ -5,6 +5,7 @@
 #include <map>
 #include <vector>
 #include <utility>
+#include <algorithm>
 #include "tokenizer.h"
 using namespace std;
 
@@ -27,7 +28,7 @@ void transformMapToFile(
     sort(items.begin(), items.end(), comparison);
 
     ofstream outputFile;
-	outputFile.open(fileName);
+	outputFile.open(fileName.c_str());
 
     for (vector<pair<string,int> >::iterator it=items.begin(); it!=items.end(); ++it)
 	{
