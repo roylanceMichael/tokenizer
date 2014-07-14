@@ -1,11 +1,11 @@
 tokenizer
 =========
 usage: 
-./buildAndRun.sh <inputFileWithMultipleFileNames> <outputFileName>
+./run.sh <inputFileWithMultipleFileNames> <outputFileName>
 
 this will read in each file in the file list and process a wordcount globally and create an output file with the results.
 
-./buildAndRun.sh docs/fileNameList outputFile.txt 
+./run.sh docs/fileNameList outputFile.txt 
 
 will create a file that looks like:
 
@@ -35,3 +35,5 @@ on	508
 
 mr	446
 ...
+
+This was tested with g++ 4.8.2 (Ubuntu) and 5.1 (Apple)
