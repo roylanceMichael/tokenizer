@@ -4,7 +4,7 @@
 #include <locale>
 #include <map>
 #include <algorithm>
-#include <unordered_set>
+#include <set>
 #include "tokenizer.h"
 using namespace std;
 
@@ -14,22 +14,12 @@ locale loc;
 // punctuationDefinition, http://www.computing.dcu.ie/~acahill/tagset.html - thank you!
 // http://www.eecis.udel.edu/~vijay/cis889/ie/pos-set.pdf - thank you!
 const char punctuationList[] = {'#', '$', '(', ')', ',', '.', ':', '"', '\''};
-static unordered_set<char> punctuation;
+const set<char> punctuation (punctuationList, punctuationList + 9);
 
 // todo: nail down exact definition of punctuation
 bool isPunctuation(char value) 
 {
-	// handle punctuation if empty
-	if (punctuation.empty()) 
-	{
-		for (int i = 0; i < strlen(punctuationList); i++) 
-		{
-			punctuation.insert(punctuationList[i]);
-		}
-
-	}
-	// O(1) searching
-	unordered_set<char>::const_iterator contains = punctuation.find(value);
+	set<char>::iterator contains = punctuation.find(value);
 	return contains == punctuation.end();
 }
 

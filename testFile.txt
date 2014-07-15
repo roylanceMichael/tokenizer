@@ -1,0 +1,8 @@
+a	2
+is	2
+simple	2
+this	2
+i	1
+line	1
+say!	1
+test	1

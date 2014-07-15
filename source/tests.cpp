@@ -74,7 +74,7 @@ int puncuationKeptInMiddle()
 
 int puncuationRemovedFromSidesButKeptInMiddle()
 {
-	string testStr = "!hello.world@";
+	string testStr = ".hello.world.";
 
 	string expected = "hello.world";
 
@@ -85,6 +85,23 @@ int puncuationRemovedFromSidesButKeptInMiddle()
 	}
 
 	cout << "failed puncuationRemovedFromSidesButKeptInMiddle expected, actual: " << actual << expected << endl;
+	
+	return 0;
+}
+
+int puncuationNotRemovedFromSidesIfNotInPunctuationListButKeptInMiddle()
+{
+	string testStr = "@hello.world@";
+
+	string expected = "@hello.world@";
+
+	string actual = handlePuncuationAndCasing(testStr);
+
+	if (actual == expected) {
+		return 1;
+	}
+
+	cout << "failed puncuationNotRemovedFromSidesIfNotInPunctuationListButKeptInMiddle expected, actual: " << actual << expected << endl;
 	
 	return 0;
 }
@@ -184,11 +201,12 @@ int main()
 	passedTests += puncuationRemovedFromEnd();
 	passedTests += puncuationKeptInMiddle();
 	passedTests += puncuationRemovedFromSidesButKeptInMiddle();
+	passedTests += puncuationNotRemovedFromSidesIfNotInPunctuationListButKeptInMiddle();
 	passedTests += charactersAreForcedIntoLower();
 	passedTests += returnsFalseIfMainFileDoesNotExist();
 	passedTests += returnsCorrectDictionaryFromSimpleTestDocument();
 	passedTests += returnsMasterListWhenInputFileEntered();
 	passedTests += transformsDictionaryCorrectly();
 
-	cout << "passed " << passedTests << " / 10 tests" << endl;
+	cout << "passed " << passedTests << " / 11 tests" << endl;
 }
