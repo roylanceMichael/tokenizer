@@ -1,14 +1,14 @@
 tokenizer
 =========
 this application does the following:
-⋅⋅1.opens a file as the first parameter on the command-line
-⋅⋅2.this file contains multiple file names
-⋅⋅3.if this parameter doesn't exist, the program will exit out with a note to the user to include the parameter in
-⋅⋅4.if this file doesn't exist, the program will exit out with a note to the user about how it does not exist
-⋅⋅5.processes each file in the file list
-⋅⋅6.if the file in the file list does not exist, the file will be skipped with a note to the user
-⋅⋅7.the file is separated by whitespace (c++ isspace) with trailing and leading punctuation stripped. finally, the characters are forced to be lower cased.
-⋅⋅8.the tokenized words are then grouped together, sorted by frequency, and print out into a file specified by the second parameter
+*	opens a file as the first parameter on the command-line
+	* this file contains multiple file names
+		* if this parameter doesn't exist, the program will exit out with a note to the user to include the parameter in
+		* if this file doesn't exist, the program will exit out with a note to the user about how it does not exist
+	* processes each file in the file list
+*	if the file in the file list does not exist, the file will be skipped with a note to the user
+*	the file is separated by whitespace (c++ isspace) with trailing and leading punctuation stripped. finally, the characters are forced to be lower cased.
+*	the tokenized words are then grouped together, sorted by frequency, and print out into a file specified by the second parameter
 
 tests can be examined at source/tests.cpp. they can be executed by running ./runTests.sh.
 
