@@ -1,6 +1,7 @@
 tokenizer
 =========
 this application does the following:
+---------
 *	opens a file as the first parameter on the command-line
 	* this file contains multiple file names
 		* if this parameter doesn't exist, the program will exit out with a note to the user to include the parameter in
@@ -13,6 +14,7 @@ this application does the following:
 tests can be examined at source/tests.cpp. they can be executed by running ./runTests.sh.
 
 usage: 
+=========
 ./run.sh <inputFileWithMultipleFileNames> <outputFileName>
 
 this will read in each file in the file list and process a wordcount globally and create an output file with the results.
