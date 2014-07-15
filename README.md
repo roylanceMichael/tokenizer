@@ -9,6 +9,10 @@ this application does the following:
 	* processes each file in the file list
 *	if the file in the file list does not exist, the file will be skipped with a note to the user
 *	the file is separated by whitespace (c++ isspace) with trailing and leading punctuation stripped. finally, the characters are forced to be lower cased.
+	* punctuation is defined as by Penn Treebank
+		* http://www.eecis.udel.edu/~vijay/cis889/ie/pos-set.pdf
+		* http://www.computing.dcu.ie/~acahill/tagset.html
+		* function defined to easily change definition of punctuation, if needed
 *	the tokenized words are then grouped together, sorted by frequency, and print out into a file specified by the second parameter
 
 tests can be examined at source/tests.cpp. they can be executed by running ./runTests.sh.
