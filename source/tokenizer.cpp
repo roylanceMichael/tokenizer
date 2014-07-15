@@ -9,6 +9,11 @@ using namespace std;
 // static variables
 locale loc;
 
+bool isPunctuation(char value) 
+{
+	return isalnum(value);
+}
+
 string handlePuncuationAndCasing(string currentBuffer) 
 {
 	// look at the beginning of the string
@@ -17,7 +22,7 @@ string handlePuncuationAndCasing(string currentBuffer)
 
 	while (beginningIter < currentBuffer.length())
 	{
-		if (isalnum(currentBuffer[beginningIter]))
+		if (isPunctuation(currentBuffer[beginningIter]))
 		{
 			startNoPuncuation = beginningIter;
 			break;
@@ -31,7 +36,7 @@ string handlePuncuationAndCasing(string currentBuffer)
 
 	while (endIter > 0) 
 	{
-		if (isalnum(currentBuffer[endIter]))
+		if (isPunctuation(currentBuffer[endIter]))
 		{
 			endNoPuncuation = endIter;
 			break;
